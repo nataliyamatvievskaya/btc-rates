@@ -1,0 +1,24 @@
+version: '2'
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ../../btc-rates:/var/www/btc-rates
+      - ./site.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php-fpm
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    build: php-fpm
+    volumes:
+      - ../../btc-rates:/var/www/btc-rates
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+

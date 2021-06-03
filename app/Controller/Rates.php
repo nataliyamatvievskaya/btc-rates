@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Service;
+namespace App\Controller;
 
 
 use App\Cache\Comission;
@@ -14,8 +14,15 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class Rates
 {
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args) {
 
+    public function __call( string $name , array $arguments ){
+
+    }
+
+    protected function run() {
+        var_dump('hereeee');
+    }
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args) {
         $rates =$this->__getAll();
 
 		$currency = $request->getQueryParams()['currency'] ?? false;

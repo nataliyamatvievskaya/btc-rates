@@ -13,7 +13,9 @@ ini_set('display_startup_errors', 1);
 
 $app = AppFactory::create();
 
-$app->get('/rates[/]', new \App\Service\Rates());
+$app->group('/v1', function($group){
+    $group->get('/rates/', new \App\Controller\Rates());
+})->add(\App\Permissions::class)->add(\Slim\Middleware\ErrorMiddleware::class);
 
 $app->get('/', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     $response->getBody()->write("Checking health: it works");
@@ -21,10 +23,10 @@ $app->get('/', function (ServerRequestInterface $request, ResponseInterface $res
 });
 try {
     $app->run();
-} catch (\Exception $e) {
-    var_dump($e);die;
-    $errResponse = (new \Slim\Psr7\Response($e->getCode()));
-    $errResponse->getBody()->write(json_encode(['err' => $e->getMessage()]));
-    $responseEmitter = new ResponseEmitter();
-    $responseEmitter->emit($errResponse);
+} catch (\Slim\Exception\HttpForbiddenException $e) {
+    // $errResponse = (new \Slim\Psr7\Response($e->getCode()));
+    // $errResponse->getBody()->write(json_encode(['err' => $e->getMessage()]));
+    // $responseEmitter = new ResponseEmitter();
+    //  $responseEmitter->emit($errResponse);
 }
+

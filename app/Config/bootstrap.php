@@ -1,8 +1,24 @@
 <?php
+/**
+ * App configs
 
+/**
+ * App comission
+ */
 define('APP_COMISSION', 0.02);
 
-define('APP_CACHE_ON', true);
+/**
+ * Cache enable/disable
+ */
+define('APP_CACHE_ON', false);
 
+/**
+ * Token for access app
+ */
 define('APP_ACCESS_TOKEN', 'test_access_token');
+
+/**
+ * default currency
+ */
+define('APP_CONVERT_CURRENCY', 'BTC');
 

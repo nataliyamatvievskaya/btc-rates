@@ -3,7 +3,11 @@
 
 namespace App\Rates\Enum;
 
-
+/**
+ * From API Fields
+ * Class Fields
+ * @package App\Rates\Enum
+ */
 class Fields
 {
 

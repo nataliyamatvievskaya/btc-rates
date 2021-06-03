@@ -6,10 +6,18 @@ namespace App\Cache;
 
 use Predis\Client;
 
+/**
+ * Class RedisCache
+ * @package App\Cache
+ */
 class RedisCache implements ICache
 {
 
     static public $redis;
+
+	/**
+	 * init static
+	 */
     static public function init(){
 
         $config = [
@@ -22,6 +30,10 @@ class RedisCache implements ICache
 
     }
 
+	/**
+	 * @param $key
+	 * @return string|null
+	 */
     static public function get($key): ?string
     {
         $value = self::$redis->get($key);
@@ -31,13 +43,21 @@ class RedisCache implements ICache
         return null;
     }
 
+	/**
+	 * @param $key
+	 * @param $value
+	 */
     static public function set($key, $value): void
     {
         self::$redis->getset($key, $value);
     }
 
-    static public function inCache($key): void
+	/**
+	 * @param $key
+	 * @param int $ttl
+	 */
+    static public function expire($key, $ttl = 60): void
     {
-        // TODO: Implement inCache() method.
+        self::expire($key, $ttl);
     }
 }

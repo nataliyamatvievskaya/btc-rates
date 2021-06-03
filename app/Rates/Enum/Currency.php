@@ -3,7 +3,11 @@
 
 namespace App\Rates\Enum;
 
-
+/**
+ * From API available currencies
+ * Class Currency
+ * @package App\Rates\Enum
+ */
 class Currency
 {
 	const USD = 'USD';

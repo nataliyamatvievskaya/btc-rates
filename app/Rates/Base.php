@@ -8,6 +8,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 
+/**
+ * Base  class for working with API
+ * https://www.blockchain.com/api/exchange_rates_api
+ * Class Base
+ * @package App\Rates
+ */
 abstract class Base
 {
     protected $_url = 'https://blockchain.info/';
@@ -24,6 +30,11 @@ abstract class Base
             ));
     }
 
+	/**
+	 * base request
+	 * @param Request $request
+	 * @return string
+	 */
     protected function _request(Request $request){
 
         try {
@@ -32,10 +43,15 @@ abstract class Base
             return $response->getBody(true)->getContents();
 
         } catch (\Throwable $e) {
-
+			throw $e;
         }
     }
 
+	/**
+	 * GET request
+	 * @param array $data
+	 * @return string
+	 */
     public function get($data = []) {
 
         $request = new Request(

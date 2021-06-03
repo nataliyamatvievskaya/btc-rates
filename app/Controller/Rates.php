@@ -4,29 +4,30 @@
 namespace App\Controller;
 
 
-use App\Cache\Comission;
-use App\Cache\RedisCache;
-use App\Rates\Enum\Currency;
+use App\Comission;
 use App\Rates\Enum\Fields;
-use App\Rates\Ticker;
+use App\Store\Rate;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class Rates
-{
+/**
+ * Getting rates operation
+ * Class Rates
+ * @package App\Controller
+ */
+class Rates {
 
-    public function __call( string $name , array $arguments ){
+	/**
+	 * @param ServerRequestInterface $request
+	 * @param ResponseInterface $response
+	 * @param array $args
+	 * @return ResponseInterface
+	 */
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
-    }
-
-    protected function run() {
-        var_dump('hereeee');
-    }
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args) {
-        $rates =$this->__getAll();
+    	$rates = (new Rate())->getAll();
 
 		$currency = $request->getQueryParams()['currency'] ?? false;
-
 
         Comission::add($rates);
 
@@ -44,33 +45,11 @@ class Rates
 			'status' => 'success',
 			'data' => json_encode($result)
 		]));
-        return $response->withHeader('Content-Type', 'application/json');
 
+        return $response->withHeader('Content-Type', 'application/json');
 
 
     }
 
-    private function __getFromServer() {
-
-    	$rates = json_decode((new Ticker())->getAll(), true);
-
-    	foreach ($rates  as $currency=>$rate) {
-			RedisCache::set('rates', json_encode($rates));
-		}
-
-    	return $rates;
-	}
-
-    private function __getAll(){
-
-    	RedisCache::init();
-    	$rates = [];
-		foreach (Currency::getConstants() as $currency) {
-			$rates[$currency] =  json_decode(RedisCache::get($currency), true);
-			if (!$rates[$currency]) {
-				return $this->__getFromServer();
-			}
-		}
-	}
 
 }

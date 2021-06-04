@@ -24,6 +24,7 @@ HAVING count(B.author) = 2
 ## Задание 2
 
 описание проекта
+
 Стек
  - PHP 7.2
  - Redis

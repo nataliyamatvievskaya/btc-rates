@@ -1,7 +1,7 @@
 # test task for perfect panel
 
 ## Задание 1
-
+``` sql
 SELECT 
     U.id as ID,
     CONCAT(U.first_name, ' ', U.last_name) as Name,
@@ -19,6 +19,7 @@ WHERE
     U.age = 17
 GROUP BY UB.user_id , B.autor
 HAVING count(B.author) = 2
+```
 
 ## Задание 2
 

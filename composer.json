@@ -1,6 +1,6 @@
 {
     "name": "natalamatvievskaa/btc-rates",
-    "description": "test tast for Perfect Panel Company",
+    "description": "test task for Perfect Panel Company",
     "type": "project",
     "require": {
         "guzzlehttp/guzzle": "^7.3",

@@ -22,3 +22,5 @@ define('APP_ACCESS_TOKEN', 'test_access_token');
  */
 define('APP_CONVERT_CURRENCY', 'BTC');
 
+define('APP_MIN_VALUE_FOR_CONVERT', 0.01);
+

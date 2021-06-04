@@ -14,20 +14,10 @@ use App\Rates\Enum\Fields;
 class Comission
 {
 	/**
-	 * @param array $rates
+	 * @param $rate
 	 */
-    static public function add(&$rates = []) {
-
-        $rates = array_map(
-			function ($rate)  {
-				$res =  $rate;
-				foreach (Fields::$forComissionAdd as $field) {
-					$res[$field] = round($res[$field] + $res[$field] * APP_COMISSION, 2);
-				}
-				return  $res;
-			},
-            $rates
-        );
+    static public function add($rate) {
+        return round($rate + $rate * APP_COMISSION, 2);
     }
 
 }
